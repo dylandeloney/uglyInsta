@@ -20,7 +20,7 @@ require("config/db.php");
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="css/styles.css">
-    <title>Home</title>
+    <title>My Profile</title>
   </head>
   <body>
     <div class="container">
@@ -29,10 +29,10 @@ require("config/db.php");
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="timeline.php" style="color: rgb(4, 142, 255)">Home</a>
+              <a class="nav-link" href="timeline.php" >Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="userProfile.php" >Profile</a>
+               <a class="nav-link" href="userProfile.php"  style="color: rgb(4, 142, 255)">Profile</a>
             </li>
           </ul>
         </div>
@@ -50,7 +50,7 @@ require("config/db.php");
                 </tr>
               </thead>
               <tbody>
-                <!-- USE PHP TO LOOP THROUGH POST DATABASE FROM ALL USERS BY POST ID AND OUTPUT IMAGE AND INFO HOPEFULLY IN REVERSE-->
+                <!-- USE PHP TO LOOP THROUGH POST DATABASE FROM THIS USER BY POST ID AND OUTPUT IMAGE AND INFO HOPEFULLY IN REVERSE-->
               </tbody>
             </table>
           </div>
