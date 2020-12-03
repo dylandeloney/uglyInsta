@@ -1,5 +1,6 @@
 <?php
 $conn = mysqli_connect('localhost', 'root', '', 'users');
+
     
 if(mysqli_connect_errno()){
     //connection failed

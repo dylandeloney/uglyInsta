@@ -11,8 +11,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $sql = "SELECT * FROM registeredUsers";
     $result = mysqli_query($conn,$sql);
-    $count = mysqli_num_rows($result);
-    $query = "INSERT INTO registeredUsers (ID, username, password) VALUES ('$count','$myusername', '$mypassword')";
+    $query = "INSERT INTO registeredUsers (username, password) VALUES ('$myusername', '$mypassword')";
     $addUser = mysqli_query($conn,$query)or die("Could Not Perform the Query");
 
     if(mysqli_affected_rows($conn) == 1){ 
