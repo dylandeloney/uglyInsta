@@ -1,5 +1,7 @@
 <?php
 require("config/db.php");
+session_start();
+$username = $_SESSION['username'];
 ?>
 
 <!DOCTYPE html>
@@ -40,13 +42,28 @@ require("config/db.php");
           </ul>
         </div>
       </nav>
-      <!-- Table with images -->
         <div class="row">
           <div class="col-12">
+            <!-- Modal form for adding post -->
+              
+              
+
+
             <!-- loop through to enter post -->
+            <?php 
+              $sql = "SELECT * FROM posts";
+              $result = mysqli_query($conn,$sql);
+              while($row = mysqli_fetch_assoc($result)){
+                echo '<div class= post>
+                  <div class= "postHeader"> <h3> '.$row["username"].' </h3> </div>
+                  <div > <img class = "postImage" src= '.$row["image"].'> </div>
+                  <div class= "postDescription"> <p>'.$row["description"].'
+                  </p> </div>
+                </div>';
+              }
+            ?>
           </div>
         </div>
-    </div>
     </div>
   </body>
 </html>

@@ -1,5 +1,8 @@
+
 <?php
 require("config/db.php");
+session_start();
+$username = $_SESSION['username'];
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +22,7 @@ require("config/db.php");
       integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="./css/styles.css">
     <title>My Profile</title>
   </head>
   <body>
@@ -41,21 +44,28 @@ require("config/db.php");
         <div class="row">
           <div class="col-12">
             <table class="table table-image">
-              <thead>
-                <tr>
-                  <th scope="col">Post</th>
-                  <th scope="col">Image</th>
-                  <th scope="col">Description</th>
-                  <th scope="col">User</th> 
-                </tr>
-              </thead>
               <tbody>
                 <!-- USE PHP TO LOOP THROUGH POST DATABASE FROM THIS USER BY POST ID AND OUTPUT IMAGE AND INFO HOPEFULLY IN REVERSE-->
+                <?php
+                    $sql = "SELECT * FROM posts WHERE username = '$username'";
+                    $result = mysqli_query($conn,$sql);
+                    $counter = 0;
+                    while($row = mysqli_fetch_assoc($result)) {
+                      if($counter % 3 == 0){
+                        Echo  '<tr>
+                                <td><img class = "tableImage" src= '.$row["image"].'></td> 
+                          </tr>';
+                        $counter++;
+                      }else{
+                        Echo '<td><img class = "tableImage" src= '.$row["image"].'></td>';
+                       $counter++;
+                      }
+                    }
+                ?>
               </tbody>
             </table>
           </div>
         </div>
-    </div>
     </div>
   </body>
 </html>
