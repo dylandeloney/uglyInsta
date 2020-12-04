@@ -17,8 +17,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if($count == 1) {
         $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
         $active = $row['ID'];
-      
-       header("location: timeline.php");
+        session_start();
+        $_SESSION['username'] = $_POST['username'];
+        header("location: timeline.php");
     }else {
        $error = "Your Login Name or Password is invalid";
        echo $error;
