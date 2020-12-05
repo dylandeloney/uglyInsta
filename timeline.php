@@ -16,7 +16,7 @@ function moveFile($fileToMove, $destination, $fileType) {
   // check to see if file type is a valid one
   if (in_array($fileType,$validMime) && in_array($extension, $validExt)) {
      
-     move_uploaded_file($fileToMove, "UPLOADS/" . $destination) or die("error");
+     move_uploaded_file($fileToMove, "images/" . $destination) or die("error");
   }else{
      echo 'Invalid file type=' . $fileType . ' Extension=' . $extension . '<br/>';
   }
@@ -30,7 +30,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     moveFile($serverName, $clientName, $fileType);
  } 
    
-  $myimage = "UPLOADS/" . $clientName;
+  $myimage = "images/" . $clientName;
   $mydescription = mysqli_real_escape_string($conn,$_POST['description']); 
 
   
