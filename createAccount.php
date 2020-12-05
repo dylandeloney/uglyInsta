@@ -9,8 +9,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $myusername = mysqli_real_escape_string($conn,$_POST['username']);
     $mypassword = mysqli_real_escape_string($conn,$_POST['password']); 
     
-    $sql = "SELECT * FROM registeredUsers";
-    $result = mysqli_query($conn,$sql);
+
     $query = "INSERT INTO registeredUsers (username, password) VALUES ('$myusername', '$mypassword')";
     $addUser = mysqli_query($conn,$query)or die("Could Not Perform the Query");
 
