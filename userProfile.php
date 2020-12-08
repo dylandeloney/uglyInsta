@@ -48,7 +48,7 @@ $username = $_SESSION['username'];
               <tbody>
                 <!-- USE PHP TO LOOP THROUGH POST DATABASE FROM THIS USER BY POST ID AND OUTPUT IMAGE AND INFO HOPEFULLY IN REVERSE-->
                 <?php
-                    $sql = "SELECT * FROM posts WHERE username = '$username'";
+                    $sql = "SELECT * FROM posts WHERE username = '$username' ORDER BY ID DESC";
                     $result = mysqli_query($conn,$sql);
                     $counter = 0;
                     while($row = mysqli_fetch_assoc($result)) {
