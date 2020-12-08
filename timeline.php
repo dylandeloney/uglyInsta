@@ -101,7 +101,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
           <div class="col-12">
             <!-- loop through to enter post -->
             <?php 
-              $sql = "SELECT * FROM posts";
+              $sql = "SELECT * FROM posts ORDER BY ID DESC";
               $result = mysqli_query($conn,$sql);
               while($row = mysqli_fetch_assoc($result)){
                 echo '<div class= "post">
