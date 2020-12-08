@@ -14,6 +14,7 @@ $username = $_SESSION['username'];
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 
     <!-- Bootstrap CSS -->
     <link
@@ -78,7 +79,6 @@ $username = $_SESSION['username'];
                             <input type = "submit" name = "delete" value = "Delete" class="btn btn-danger btn-lg" >
                         </form>
                         </td>';
-                        Echo $row["image"];
                        $counter++;
                     }
                   }

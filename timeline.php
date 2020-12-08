@@ -66,6 +66,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 
     <!-- Bootstrap CSS -->
     <link
@@ -80,7 +81,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
   <body>
     <div class="container">
       <!-- NAVBAR -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top ">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
@@ -103,7 +104,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
               $sql = "SELECT * FROM posts";
               $result = mysqli_query($conn,$sql);
               while($row = mysqli_fetch_assoc($result)){
-                echo '<div class= post>
+                echo '<div class= "post">
                   <div class= "postHeader"> <h3> '.$row["username"].' </h3> </div>
                   <div > <img class = "postImage" src= '.$row["image"].'> </div>
                   <div class= "postDescription"> <p>'.$row["description"].'
