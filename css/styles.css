@@ -26,9 +26,7 @@
     }  
     
     td {
-        display: block;
-        float: left;
-        max-width: 33%;
+        max-width: 30%;
         margin: 0;
     }  
 

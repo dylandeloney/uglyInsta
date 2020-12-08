@@ -1,41 +1,50 @@
 <?php
+namespace Verot\Upload;
+
 require("config/db.php");
+
+//**********************************************
+// LYLE COMM - class upload session - from https://www.verot.net/php_class_upload.html
+require("class.upload.php");
+//**********************************************
+
 session_start();
 $username = $_SESSION['username'];
 
-/*
-Moves an uploaded file to our destination location */
-function moveFile($fileToMove, $destination, $fileType) {
-  $validExt = array("jpg", "png");
-  $validMime = array("image/jpeg","image/png");
-  // make an array of two elements, first=filename before extension,
-  // and the second=extension
-  $components = explode(".", $destination);
-  // retrieve just the end component (i.e., the extension) 
-  $extension = end($components);
-  // check to see if file type is a valid one
-  if (in_array($fileType,$validMime) && in_array($extension, $validExt)) {
-     
-     move_uploaded_file($fileToMove, "images/" . $destination) or die("error");
-  }else{
-     echo 'Invalid file type=' . $fileType . ' Extension=' . $extension . '<br/>';
-  }
-}
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
-  if ($_FILES["file1"]["error"] == UPLOAD_ERR_OK) { 
     $clientName = $_FILES["file1"]["name"]; 
-    $serverName = $_FILES["file1"]["tmp_name"]; 
-    $fileType = $_FILES["file1"]["type"];
-    moveFile($serverName, $clientName, $fileType);
- } 
-   
-  $myimage = "images/" . $clientName;
+
+//**************************************
+    $myimage = new upload($_FILES['file1']); 
+    if ($myimage->uploaded) {
+    $myimage->file_new_name_body   = $clientName;
+
+    // LYLE - Resizing of images
+    // Make sure the image is resized
+    $myimage->image_resize  = true;
+    // Set the width of the image
+    $myimage->image_x  = 800;
+    // Ensure the height of the image is calculated based on ratio
+    $myimage->image_y = 700;
+    // Process the image resize and save the uploaded file to the directory
+    $myimage->process("images/");
+    // Proceed if image processing completed sucessfully
+    if($myimage->processed) {
+        // Your image has been resized and saved
+        echo 'image resized';
+        // Reset the properties of the upload object
+        $myimage->clean();
+    }else{
+        // Write the error to the screen
+        echo 'error : ' . $myimage->error;}
+        //**********************************************
+    }
   $mydescription = mysqli_real_escape_string($conn,$_POST['description']); 
+  $myimageLocation = "images/" . $myimage->file_dst_name;
+   
 
-  
-
-  $query = "INSERT INTO posts (image, username, description) VALUES ('$myimage', '$username', '$mydescription')";
+  $query = "INSERT INTO posts (image, username, description) VALUES ('$myimageLocation', '$username', '$mydescription')";
   $addUser = mysqli_query($conn,$query)or die("Could Not Perform the Query");
 
   if(mysqli_affected_rows($conn) == 1){ 
