@@ -29,7 +29,6 @@ SET autocommit=1;
 # Dumping data for table 'registeredUser'
 #
 
-INSERT INTO `registeredUsers` (`username`, `password`) VALUES ('Dylan', 'password');
 
 
 -- create posts table
@@ -54,6 +53,5 @@ SET autocommit=1;
 # Dumping data for table 'posts'
 #
 
-INSERT INTO `posts` (`image`, `username`, `description`) VALUES ('images/branches-4211837_1280.jpg', 'Dylan', 'Hard coded in.');
 
 

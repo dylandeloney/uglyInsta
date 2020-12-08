@@ -53,14 +53,16 @@ $username = $_SESSION['username'];
                     while($row = mysqli_fetch_assoc($result)) {
                       if($counter % 3 == 0){
                         Echo  '<tr>
-                                <td><img class = "tableImage" src= '.$row["image"].'></td> 
-                          </tr>';
+                                <td><img class = "tableImage" src= '.$row["image"].'></td> ';
                         $counter++;
+                      }else if($counter % 3 == 2){
+                        Echo '<td><img class = "tableImage" src= '.$row["image"].'></td></tr>';
+                       $counter++;
                       }else{
                         Echo '<td><img class = "tableImage" src= '.$row["image"].'></td>';
                        $counter++;
-                      }
                     }
+                  }
                 ?>
               </tbody>
             </table>
