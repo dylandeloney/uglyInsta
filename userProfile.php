@@ -53,13 +53,32 @@ $username = $_SESSION['username'];
                     while($row = mysqli_fetch_assoc($result)) {
                       if($counter % 3 == 0){
                         Echo  '<tr>
-                                <td><img class = "tableImage" src= '.$row["image"].'></td> ';
+                                <td><img class = "tableImage" src= '.$row["image"].'>
+                                <form method = "POST">
+                                    <input type="hidden" name="id" value= '.$row["ID"].' />
+                                    <input type="hidden" name="image" value= '.$row["image"].' />
+                                    <input type = "submit" name = "delete" value = "Delete" class="btn btn-danger btn-lg" >
+                                </form>
+                                </td> ';
                         $counter++;
                       }else if($counter % 3 == 2){
-                        Echo '<td><img class = "tableImage" src= '.$row["image"].'></td></tr>';
+                        Echo '<td><img class = "tableImage" src= '.$row["image"].'>
+                        <form method = "POST">
+                            <input type="hidden" name="id" value= '.$row["ID"].' />
+                            <input type="hidden" name="image" value= '.$row["image"].' />
+                            <input type = "submit" name = "delete" value = "Delete" class="btn btn-danger btn-lg" >
+                        </form> 
+                        </td></tr>';
                        $counter++;
                       }else{
-                        Echo '<td><img class = "tableImage" src= '.$row["image"].'></td>';
+                        Echo '<td><img class = "tableImage" src= '.$row["image"].'>
+                        <form method = "POST">
+                            <input type="hidden" name="id" value= '.$row["ID"].' />
+                            <input type="hidden" name="image" value= '.$row["image"].' />
+                            <input type = "submit" name = "delete" value = "Delete" class="btn btn-danger btn-lg" >
+                        </form>
+                        </td>';
+                        Echo $row["image"];
                        $counter++;
                     }
                   }
@@ -71,3 +90,36 @@ $username = $_SESSION['username'];
     </div>
   </body>
 </html>
+
+<?php
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+        $postToDelete = mysqli_real_escape_string($conn,$_POST['id']);
+        $filename = mysqli_real_escape_string($conn,$_POST['image']);
+        
+
+        $sql = "DELETE FROM posts WHERE ID = '$postToDelete'";
+
+          if (file_exists($filename)) {
+            unlink($filename);
+            echo 'File '.$filename.' has been deleted';
+          } else {
+            echo 'Could not delete '.$filename.', file does not exist';
+          }
+        
+        $deletePost = mysqli_query($conn,$sql);
+
+        if(mysqli_affected_rows($conn) == 1)
+            { 
+              header("location: userProfile.php");
+            }
+            else 
+            {
+              $error = "Could not delete post.";
+              echo $error;
+            }
+        
+        
+}
+
+?>
