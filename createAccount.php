@@ -1,5 +1,4 @@
-<!-- TODO -->
-<!-- ADD PARAMETER CHECKS FOR MINIMUM LENGTH OF PASSWORD AND USERNAME -->
+
 
 <?php
 require("config/db.php");
@@ -8,18 +7,45 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $myusername = mysqli_real_escape_string($conn,$_POST['username']);
     $mypassword = mysqli_real_escape_string($conn,$_POST['password']); 
-    
 
-    $query = "INSERT INTO registeredUsers (username, password) VALUES ('$myusername', '$mypassword')";
-    $addUser = mysqli_query($conn,$query)or die("Could Not Perform the Query");
+    //I basically add an if statement here only allowing usernames and passwords that are the correct length to the
+//database and if they aren't, it notifies the user to reenter a proper user name or password. Feel free to 
+//adjust it or change anything.  - Tyler Moyd
 
-    if(mysqli_affected_rows($conn) == 1){ 
-        header("location: index.php");
-    }else {
-       $error = "Your Login Name or Password is invalid";
-       echo $error;
+    if (strlen($myusername) < 4 OR strlen($myusername) > 12)
+    {
+       echo "Username must be between 4 to 12 characters.";
     }
+    elseif (strlen($mypassword) < 4 OR strlen($mypassword) > 12)
+    {
+       echo "Password must be between 4 to 12 characters.";
+    }
+    else
+    {
+        $sql = "SELECT ID FROM registeredUsers WHERE username = '$myusername'";
+        $result = mysqli_query($conn,$sql);
+        
+        $count = mysqli_num_rows($result);
+        
+        // If result matched $myusername, table row must be 1 row
+          
+        if($count > 0) {
+            echo "This username is already taken.";
+        }else {
     
+          $query = "INSERT INTO registeredUsers (username, password) VALUES ('$myusername', '$mypassword')";
+          $addUser = mysqli_query($conn,$query)or die("Could Not Perform the Query");
+            if(mysqli_affected_rows($conn) == 1)
+            { 
+              header("location: index.php");
+            }
+            else 
+            {
+              $error = "Account could not be created";
+              echo $error;
+            }
+        }
+    }
 }
 
 ?>
