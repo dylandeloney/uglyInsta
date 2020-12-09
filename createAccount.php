@@ -37,8 +37,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
           $addUser = mysqli_query($conn,$query)or die("Could Not Perform the Query");
             if(mysqli_affected_rows($conn) == 1)
             { 
-              header("location: index.php");
-            }
+                echo '<script type="text/javascript">'; 
+                echo 'alert("Account created! You will be redirected to the login page.");';
+                echo 'window.location.href = "index.php";';
+                echo '</script>';            }
             else 
             {
               $error = "Account could not be created";
